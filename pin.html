@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter PIN</title>
+    <link href="login.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="pinContainer">
+        <h2>Enter Your PIN</h2>
+        <form id="pinForm">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Email Address" required autocomplete="username">
+
+            <label for="pin">PIN:</label>
+            <input type="text" id="pin" name="pin" placeholder="Enter PIN" required autocomplete="one-time-code">
+
+            <button type="submit">Verify PIN</button>
+        </form>
+        <p id="message"></p>
+    </div>
+
+    <script>
+document.addEventListener("DOMContentLoaded", function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const email = urlParams.get("email");
+    if (email) {
+        document.getElementById("email").value = email; // Pre-fill email field
+    }
+});
+
+document.getElementById("pinForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const email = document.getElementById("email").value;
+    const pin = document.getElementById("pin").value;
+
+    const response = await fetch("http://localhost:3000/verify-pin", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, enteredPin: pin })
+    });
+
+    const data = await response.json();
+    document.getElementById("message").innerText = data.message;
+});
+</script>
+
+</body>
+</html>

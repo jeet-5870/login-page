@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <link href="login.css" rel="stylesheet">
+</head>
+<body>
+
+  <div class="loginContainer">
+    <div class="topCurve">Signup</div>
+    <div class="formContent">
+      <h2>Login</h2>
+      <form id="loginForm">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Email Address" required autocomplete="username">
+        
+        <label for="password">Password:</label>
+
+        <input type="password" id="password"    name="password" placeholder="Password" required       autocomplete="current-password">
+
+        <a href="#">Forgot Password?</a>
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  </div>
+  <script>
+document.getElementById("loginForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const email = document.getElementById("email").value;
+
+    // Send request to generate PIN
+    const response = await fetch("http://localhost:3000/send-pin", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email })
+    });
+
+    const data = await response.json();
+    if (data.message === "PIN sent successfully!") {
+        // Redirect to PIN input page with email as query parameter
+        window.location.href = `pin.html?email=${encodeURIComponent(email)}`;
+    } else {
+        alert("❌ Failed to send PIN. Please try again.");
+    }
+});
+</script>
+</body>
+
+</html>
