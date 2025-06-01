@@ -11,14 +11,11 @@ app.use(cors());
 
 const PORT = process.env.PORT || 3000;
 
-// In-memory storage for PINs (Use a database in production)
 const pinStore = new Map();
-const pinExpiryTime = 5 * 60 * 1000; // PIN expires in 5 minutes
-
-// Configure Nodemailer with Gmail SMTP & SSL
+const pinExpiryTime = 5 * 60 * 1000;
 const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
-    port: 465, // Use SSL
+    port: 465,
     secure: true,
     auth: {
         user: process.env.EMAIL_USER,
@@ -26,7 +23,6 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-// API route to send login PIN
 app.post("/send-pin", async (req, res) => {
     const email = req.body.email;
     console.log("📩 Received request to send PIN to:", email);
@@ -35,7 +31,6 @@ app.post("/send-pin", async (req, res) => {
         return res.status(400).json({ message: "❌ Valid email required!" });
     }
 
-    // Generate and store PIN with expiry
     const pin = Math.floor(100000 + Math.random() * 900000);
     pinStore.set(email, { pin, expiry: Date.now() + pinExpiryTime });
 
@@ -58,7 +53,6 @@ app.post("/send-pin", async (req, res) => {
     }
 });
 
-// API route to verify the PIN
 app.post("/verify-pin", (req, res) => {
     const { email, enteredPin } = req.body;
 
@@ -78,14 +72,13 @@ app.post("/verify-pin", (req, res) => {
     }
 
     if (parseInt(enteredPin) === storedData.pin) {
-        pinStore.delete(email); // Remove PIN after verification
+        pinStore.delete(email);
         return res.json({ message: "✅ PIN verified! Login successful." });
     } else {
         return res.status(400).json({ message: "❌ Invalid PIN. Please try again." });
     }
 });
 
-// Start the server on the dynamic port
 app.listen(PORT, () => {
     console.log(`✅ Server running on http://localhost:${PORT}`);
 });
