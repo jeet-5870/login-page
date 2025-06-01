@@ -1,4 +1,3 @@
-/* Global Styles */
 * {
     margin: 0;
     padding: 0;
@@ -14,123 +13,15 @@ body {
     align-items: center;
 }
 
-/* Container for Login & PIN Pages */
-.container {
-    width: 300px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    position: relative;
-    padding: 20px;
-    text-align: center;
-}
-
-/* Top Curve Banner */
-.topCurve {
-    width: 100%;
-    height: 70px;
-    background: #2e72f6;
-    border-bottom-left-radius: 100% 50px;
-    border-bottom-right-radius: 100% 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-/* Form Content */
-.formContent {
-    margin-bottom: 20px;
-    color: #333;
-}
-
-.formContent h2 {
-    padding: 30px 25px 40px;
-    text-align: center;
-}
-
-/* Input Fields */
-.formContent input[type="email"],
-.formContent input[type="password"],
-.formContent input[type="text"] { /* PIN Input */
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 12px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    outline: none;
-    font-size: 16px;
-}
-
-/* Readonly Email Field */
-input[readonly] {
-    background-color: #e9ecef;
-}
-
-/* Links */
-.formContent a {
-    display: block;
-    text-align: right;
-    font-size: 13px;
-    color: #555;
-    margin-bottom: 20px;
-    text-decoration: none;
-}
-
-/* Buttons */
-.formContent button {
-    width: 100%;
-    padding: 10px;
-    background: #2e72f6;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background 0.3s;
-}
-
-.formContent button:hover {
-    background: #195ee3;
-}
-
-/* Message Styling */
-#message {
-    margin-top: 10px;
-    font-size: 14px;
-    color: #333;
-}/* Global Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-body {
-    background: white;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Shared Container for Login & PIN Pages */
 .container, .pinContainer {
-    width: 300px;
+    width: 320px;
     background: white;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    position: relative;
-    padding: 20px;
+    padding: 25px;
     text-align: center;
 }
 
-/* Top Banner Curve */
 .topCurve {
     width: 100%;
     height: 70px;
@@ -145,7 +36,6 @@ body {
     font-weight: bold;
 }
 
-/* Form Content */
 .formContent {
     margin-bottom: 20px;
     color: #333;
@@ -156,25 +46,26 @@ body {
     text-align: center;
 }
 
-/* Input Fields for Login & PIN */
+
 .formContent input[type="email"],
 .formContent input[type="password"],
-.formContent input[type="text"] { /* PIN Input */
+.formContent input[type="text"],
+.pinContainer input[type="email"],
+.pinContainer input[type="text"] {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 12px;
+    padding: 12px;
+    margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
     outline: none;
     font-size: 16px;
 }
 
-/* Readonly Email Field (PIN Page) */
+
 input[readonly] {
     background-color: #e9ecef;
 }
 
-/* Forgot Password & Links */
 .formContent a {
     display: block;
     text-align: right;
@@ -184,26 +75,51 @@ input[readonly] {
     text-decoration: none;
 }
 
-/* Buttons */
-.formContent button {
+.formContent button,
+.pinContainer button {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     background: #2e72f6;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-weight: bold;
-    transition: background 0.3s;
+    transition: background 0.3s, ease-in-out;
 }
 
-.formContent button:hover {
+.formContent button:hover,
+.pinContainer button:hover {
     background: #195ee3;
 }
 
-/* PIN Verification Message */
 #message {
     margin-top: 10px;
     font-size: 14px;
     color: #333;
+}
+
+#pinform {
+    background: white;
+}
+
+#message {
+    margin-top: 12px;
+    font-size: 14px;
+    color: #333;
+}
+
+.pinContainer h2 {
+    margin-bottom: 20px;
+    font-size: 22px;
+    color: #2e72f6;
+}
+
+.pinContainer label {
+    display: block;
+    text-align: left;
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: #333;
+    font-weight: bold;
 }
