@@ -31,7 +31,6 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
 
     const email = document.getElementById("email").value;
 
-    // Send request to generate PIN
     const response = await fetch("http://localhost:3000/send-pin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -40,7 +39,6 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
 
     const data = await response.json();
     if (data.message === "PIN sent successfully!") {
-        // Redirect to PIN input page with email as query parameter
         window.location.href = `pin.html?email=${encodeURIComponent(email)}`;
     } else {
         alert("❌ Failed to send PIN. Please try again.");
@@ -48,5 +46,4 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
 });
 </script>
 </body>
-
 </html>
