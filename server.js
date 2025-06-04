@@ -10,7 +10,7 @@ app.use(express.json());
 
 // ✅ Allow requests only from GitHub Pages frontend
 const corsOptions = {
-    origin: "https://jeet-5870.github.io", // 🔄 Replace with your GitHub Pages URL
+    origin: "https://jeet-5870.github.io/login-page/", // 🔄 Replace with your GitHub Pages URL
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"]
 };
