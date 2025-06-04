@@ -8,21 +8,16 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 
-// ✅ Configure CORS for GitHub Pages frontend
+// ✅ Allow requests only from GitHub Pages frontend
 const corsOptions = {
-    origin: (origin, callback) => {
-        const allowedOrigins = ["https://jeet-5870.github.io", "https://jeet-5870.github.io/login-page/"];
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            callback(new Error("❌ Not allowed by CORS"));
-        }
-    },
-    methods: "POST",
+    origin: "https://jeet-5870.github.io", // 🔄 Replace with your GitHub Pages URL
+    methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"]
 };
 app.use(cors(corsOptions));
 
+// ✅ Handle preflight requests
+app.options("*", cors(corsOptions));
 
 app.get("/", (req, res) => {
     res.send("✅ Server is running! Try POST requests to /send-pin or /verify-pin.");
@@ -43,6 +38,7 @@ const transporter = nodemailer.createTransport({
 });
 
 app.post("/send-pin", async (req, res) => {
+    res.setHeader("Content-Type", "application/json"); // ✅ Ensure JSON response
     const email = req.body.email;
     console.log("📩 Received request to send PIN to:", email);
 
@@ -73,6 +69,7 @@ app.post("/send-pin", async (req, res) => {
 });
 
 app.post("/verify-pin", (req, res) => {
+    res.setHeader("Content-Type", "application/json"); // ✅ Ensure JSON response
     const { email, enteredPin } = req.body;
 
     if (!email || !enteredPin || enteredPin.length !== 6) {
@@ -99,5 +96,5 @@ app.post("/verify-pin", (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`✅ Server running on ${PORT}`);
+    console.log(`✅ Server running on port ${PORT}`);
 });
