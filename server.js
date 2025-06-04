@@ -8,19 +8,25 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 
-// ✅ Allow requests only from GitHub Pages frontend
+// ✅ Correct CORS setup
 const corsOptions = {
-    origin: "https://jeet-5870.github.io/login-page/", // 🔄 Replace with your GitHub Pages URL
+    origin: "https://jeet-5870.github.io/login-page", // ✅ Fixed trailing slash
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"]
 };
 app.use(cors(corsOptions));
 
 // ✅ Handle preflight requests
-app.options("*", cors(corsOptions));
+app.options("*", (req, res) => {
+    res.setHeader("Access-Control-Allow-Origin", "https://jeet-5870.github.io/login-page");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+    res.sendStatus(200);
+});
 
+// ✅ Root endpoint for server status check
 app.get("/", (req, res) => {
-    res.send("✅ Server is running! Try POST requests to /send-pin or /verify-pin.");
+    res.json({ message: "✅ Server is running! Try POST requests to /send-pin or /verify-pin." });
 });
 
 const PORT = process.env.PORT || 3000;
@@ -37,8 +43,9 @@ const transporter = nodemailer.createTransport({
     }
 });
 
+// ✅ Route to send a PIN via email
 app.post("/send-pin", async (req, res) => {
-    res.setHeader("Content-Type", "application/json"); // ✅ Ensure JSON response
+    res.setHeader("Content-Type", "application/json"); 
     const email = req.body.email;
     console.log("📩 Received request to send PIN to:", email);
 
@@ -68,8 +75,9 @@ app.post("/send-pin", async (req, res) => {
     }
 });
 
+// ✅ Route to verify a PIN
 app.post("/verify-pin", (req, res) => {
-    res.setHeader("Content-Type", "application/json"); // ✅ Ensure JSON response
+    res.setHeader("Content-Type", "application/json"); 
     const { email, enteredPin } = req.body;
 
     if (!email || !enteredPin || enteredPin.length !== 6) {
@@ -95,6 +103,7 @@ app.post("/verify-pin", (req, res) => {
     }
 });
 
+// ✅ Start the server
 app.listen(PORT, () => {
     console.log(`✅ Server running on port ${PORT}`);
 });
