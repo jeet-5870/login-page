@@ -10,11 +10,19 @@ app.use(express.json());
 
 // ✅ Configure CORS for GitHub Pages frontend
 const corsOptions = {
-    origin: "https://jeet-5870.github.io/login-page/",  // 🔄 Replace with your actual frontend URL
+    origin: (origin, callback) => {
+        const allowedOrigins = ["https://jeet-5870.github.io", "https://jeet-5870.github.io/login-page/"];
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error("❌ Not allowed by CORS"));
+        }
+    },
     methods: "POST",
     allowedHeaders: ["Content-Type"]
 };
 app.use(cors(corsOptions));
+
 
 app.get("/", (req, res) => {
     res.send("✅ Server is running! Try POST requests to /send-pin or /verify-pin.");
