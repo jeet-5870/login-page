@@ -7,12 +7,18 @@ dotenv.config();
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+
+// ✅ Configure CORS for GitHub Pages frontend
+const corsOptions = {
+    origin: "https://jeet-5870.github.io/login-page/",  // 🔄 Replace with your actual frontend URL
+    methods: "POST",
+    allowedHeaders: ["Content-Type"]
+};
+app.use(cors(corsOptions));
 
 app.get("/", (req, res) => {
     res.send("✅ Server is running! Try POST requests to /send-pin or /verify-pin.");
 });
-
 
 const PORT = process.env.PORT || 3000;
 
