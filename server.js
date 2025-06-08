@@ -24,11 +24,6 @@ app.options("*", (req, res) => {
     res.sendStatus(200);
 });
 
-// ✅ Root endpoint for server status check
-app.get("/", (req, res) => {
-    res.json({ message: "✅ Server is running! Try POST requests to /send-pin or /verify-pin." });
-});
-
 const PORT = process.env.PORT || 3000;
 
 const pinStore = new Map();
