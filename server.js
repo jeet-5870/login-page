@@ -10,7 +10,7 @@ app.use(express.json());
 
 // ✅ Correct CORS setup
 const corsOptions = {
-    origin: "https://jeet-5870.github.io/login-page", // ✅ Fixed trailing slash
+    origin: "https://jeet-5870.github.io", // ✅ Fixed trailing slash
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"],
     optionsSuccessStatus: 200 // Let cors handle preflight
