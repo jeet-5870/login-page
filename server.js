@@ -12,17 +12,10 @@ app.use(express.json());
 const corsOptions = {
     origin: "https://jeet-5870.github.io/login-page", // ✅ Fixed trailing slash
     methods: ["GET", "POST"],
-    allowedHeaders: ["Content-Type"]
+    allowedHeaders: ["Content-Type"],
+    optionsSuccessStatus: 200 // Let cors handle preflight
 };
 app.use(cors(corsOptions));
-
-// ✅ Handle preflight requests
-app.options("*", (req, res) => {
-    res.setHeader("Access-Control-Allow-Origin", "https://jeet-5870.github.io/login-page");
-    res.setHeader("Access-Control-Allow-Methods", "GET, POST");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-    res.sendStatus(200);
-});
 
 const PORT = process.env.PORT || 3000;
 
