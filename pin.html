@@ -37,7 +37,7 @@ document.getElementById("pinForm").addEventListener("submit", async function(eve
     const email = document.getElementById("email").value;
     const pin = document.getElementById("pin").value;
 
-    const response = await fetch("https://loginpage-ji3y.onrender.com/verify-pin", {
+    const response = await fetch("https://login-j5sn.onrender.com/verify-pin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, enteredPin: pin })
